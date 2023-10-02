@@ -39,6 +39,7 @@ export class GithubArtifactUploader implements ArtifactUploader {
                 releaseId)
         } catch (error: any) {
             if (error.status >= 500 && retry > 0) {
+                core.warning(`upload url is ${uploadUrl}`)
                 core.warning(`Failed to upload artifact ${artifact.name}. ${error.message}. Retrying...`)
                 await this.uploadArtifact(artifact, releaseId, uploadUrl, retry - 1)
             } else {
